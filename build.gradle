@@ -26,7 +26,8 @@ ext {
     minSdkVersion = 16
     targetSdkVersion = compileSdkVersion
 
-    supportLibVersion = '1.1.0'
+    androidXVersion = '1.1.0'
+    androidXLifeCycleVersion = '2.2.0'
 
     versionCode = 1
     versionName = '1.0.0'
