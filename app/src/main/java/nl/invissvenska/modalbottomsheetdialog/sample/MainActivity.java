@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import nl.invissvenska.modalbottomsheetdialog.ModalBottomSheetDialog;
+import nl.invissvenska.modalbottomsheetdialog.Option;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new ModalBottomSheetDialog.Builder()
+                        .setHeader("header")
                         .add(R.menu.options)
                         .show(getSupportFragmentManager(), "hoi");
             }
@@ -52,5 +55,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onModalOptionSelected(String tag, Option option) {
+        Snackbar.make(findViewById(android.R.id.content).getRootView(), tag + " " + option.getTitle() + " " + option.getId(), Snackbar.LENGTH_SHORT).show();
     }
 }

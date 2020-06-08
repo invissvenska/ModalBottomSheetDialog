@@ -1,10 +1,13 @@
 package nl.invissvenska.modalbottomsheetdialog;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 public class OptionRequest implements Parcelable {
 
@@ -23,6 +26,12 @@ public class OptionRequest implements Parcelable {
         this.id = source.readInt();
         this.title = source.readString();
         this.icon = (Integer) source.readValue(getClass().getClassLoader());
+    }
+
+    protected Option toOption(Context context) {
+        Drawable drawable = null;
+        drawable = icon != null ? ResourcesCompat.getDrawable(context.getResources(), icon, context.getTheme()) : null;
+        return new Option(id, title, drawable);
     }
 
     public static final Creator<OptionRequest> CREATOR = new Creator<OptionRequest>() {

@@ -14,4 +14,16 @@ public class Option {
         this.title = title;
         this.icon = icon;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public CharSequence getTitle() {
+        return title;
+    }
+
+    public Drawable getIcon() {
+        return icon;
+    }
 }

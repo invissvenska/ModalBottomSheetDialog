@@ -42,4 +42,12 @@ public class OptionHolder implements Parcelable {
         dest.writeValue(resource);
         dest.writeParcelable(optionRequest, 0);
     }
+
+    public Integer getResource() {
+        return resource;
+    }
+
+    public OptionRequest getOptionRequest() {
+        return optionRequest;
+    }
 }
