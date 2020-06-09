@@ -25,7 +25,6 @@ android {
 }
 
 dependencies {
-//    api "androidx.appcompat:appcompat:$androidXVersion"
     api "com.google.android.material:material:$androidXVersion"
     api "androidx.lifecycle:lifecycle-extensions:$androidXLifeCycleVersion"
 }

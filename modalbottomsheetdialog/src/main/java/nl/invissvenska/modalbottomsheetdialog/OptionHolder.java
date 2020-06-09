@@ -10,9 +10,8 @@ public class OptionHolder implements Parcelable {
     private Integer resource;
     private OptionRequest optionRequest;
 
-    public OptionHolder(@Nullable Integer resource, @Nullable OptionRequest optionRequest) {
+    public OptionHolder(@Nullable Integer resource) {
         this.resource = resource;
-        this.optionRequest = optionRequest;
     }
 
     public OptionHolder(Parcel source) {

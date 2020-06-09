@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,16 +30,13 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     private static ModalBottomSheetDialog fragment;
 
     private static final String KEY_OPTIONS = "options";
-    private static final String KEY_LAYOUT = "layout";
+    private static final String KEY_ITEM_LAYOUT = "item_layout";
     private static final String KEY_HEADER = "header";
     private static final String KEY_HEADER_LAYOUT = "header_layout";
-
-    private RecyclerView list;
-    private Adapter adapter;
-    private Listener listener;
+    private static final String KEY_COLUMNS = "columns";
 
     private ModalBottomSheetDialog() {
-
+        // avoiding instantiation
     }
 
     private static ModalBottomSheetDialog newInstance(Builder builder) {
@@ -46,10 +44,11 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             fragment = new ModalBottomSheetDialog();
         }
         Bundle arguments = new Bundle();
-        arguments.putParcelableArrayList(KEY_OPTIONS, builder.options);
-        arguments.putInt(KEY_LAYOUT, builder.layoutResource);
         arguments.putString(KEY_HEADER, builder.header);
         arguments.putInt(KEY_HEADER_LAYOUT, builder.headerLayoutResource);
+        arguments.putParcelableArrayList(KEY_OPTIONS, builder.options);
+        arguments.putInt(KEY_ITEM_LAYOUT, builder.itemLayoutResource);
+        arguments.putInt(KEY_COLUMNS, builder.columns);
 
         fragment.setArguments(arguments);
         return fragment;
@@ -63,12 +62,13 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        list = view.findViewById(R.id.list);
+        RecyclerView list = view.findViewById(R.id.list);
         Bundle arguments = getArguments();
-        ArrayList<OptionHolder> optionHolders = arguments.getParcelableArrayList(KEY_OPTIONS);
-        ArrayList<Option> options = new ArrayList<>();
+        assert arguments != null;
+        List<OptionHolder> optionHolders = arguments.getParcelableArrayList(KEY_OPTIONS);
+        List<Option> options = new ArrayList<>();
 
-        for (OptionHolder oh : optionHolders) {
+        for (OptionHolder oh : optionHolders != null ? optionHolders : new ArrayList<OptionHolder>()) {
             Integer resource = oh.getResource();
             OptionRequest optionRequest = oh.getOptionRequest();
             if (resource != null) {
@@ -79,18 +79,30 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             }
         }
 
-
-        adapter = new Adapter(bindHost());
+        final Adapter adapter = new Adapter(bindHost());
         adapter.setHeader(arguments.getString(KEY_HEADER));
         adapter.setHeaderLayoutResource(arguments.getInt(KEY_HEADER_LAYOUT));
-        adapter.setLayoutRes(arguments.getInt(KEY_LAYOUT));
-        list.setAdapter(adapter);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.setOptions(options);
+        adapter.setItemLayoutRes(arguments.getInt(KEY_ITEM_LAYOUT));
+        list.setAdapter(adapter);
+        final int columns = arguments.getInt(KEY_COLUMNS);
+        RecyclerView.LayoutManager layoutManager;
+        if (columns > 1) {
+            layoutManager = new GridLayoutManager(getContext(), columns);
+            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return adapter.header != null && position == 0 ? columns : 1;
+                }
+            });
+        } else {
+            layoutManager = new LinearLayoutManager(getContext());
+        }
+        list.setLayoutManager(layoutManager);
     }
 
     @SuppressLint("RestrictedApi")
-    private void inflate(Integer menuResource, ArrayList<Option> options) {
+    private void inflate(Integer menuResource, List<Option> options) {
         MenuBuilder menu = new MenuBuilder(getContext());
         MenuInflater inflater = new MenuInflater(getContext());
         inflater.inflate(menuResource, menu);
@@ -102,35 +114,23 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private Listener bindHost() {
-        if (getParentFragment() != null) {
-            if (getParentFragment() instanceof Listener) {
-                return (Listener) getParentFragment();
-            }
+        if (getParentFragment() != null && getParentFragment() instanceof Listener) {
+            return (Listener) getParentFragment();
         }
         if (getContext() instanceof Listener) {
             return (Listener) getContext();
         }
-        throw new IllegalStateException("Listener mist");
+        throw new IllegalStateException("Activity or Fragment need to implements ModalBottomSheetDialog.Listener");
     }
 
     public static class Builder {
-        private ArrayList<OptionHolder> options = new ArrayList<>();
-        private int layoutResource = R.layout.bottom_sheet_fragment_item;
         private String header = null;
         private int headerLayoutResource = R.layout.bottom_sheet_fragment_header;
+        private ArrayList<OptionHolder> options = new ArrayList<>();
+        private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
+        private int columns = 1;
 
         public Builder() {
-
-        }
-
-        public Builder setLayout(@LayoutRes int layoutResource) {
-            this.layoutResource = layoutResource;
-            return this;
-        }
-
-        public Builder add(@MenuRes int menuResource) {
-            options.add(new OptionHolder(menuResource, null));
-            return this;
         }
 
         public Builder setHeader(String header) {
@@ -138,19 +138,38 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             return this;
         }
 
+        public Builder setHeaderLayout(@LayoutRes int headerLayoutResource) {
+            this.headerLayoutResource = headerLayoutResource;
+            return this;
+        }
+
+        public Builder add(@MenuRes int menuResource) {
+            options.add(new OptionHolder(menuResource));
+            return this;
+        }
+
+        public Builder setItemLayout(@LayoutRes int itemLayoutResource) {
+            this.itemLayoutResource = itemLayoutResource;
+            return this;
+        }
+
+        public Builder setColumns(int columns) {
+            this.columns = columns;
+            return this;
+        }
+
         public ModalBottomSheetDialog build() {
             return newInstance(this);
         }
 
-        public ModalBottomSheetDialog show(FragmentManager fragmentManager, String tag) {
+        public void show(FragmentManager fragmentManager, String tag) {
             ModalBottomSheetDialog dialog = build();
             dialog.show(fragmentManager, tag);
-            return dialog;
         }
     }
 
     public interface Listener {
-        void onModalOptionSelected(String tag, Option option);
+        void onOptionSelected(String tag, Option option);
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -159,7 +178,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         private static final int VIEW_TYPE_ITEM = 1;
 
         private ArrayList<Option> options = new ArrayList<>();
-        private int layoutResource = R.layout.bottom_sheet_fragment_item;
+        private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
         private int headerLayoutResource = R.layout.bottom_sheet_fragment_header;
         private String header = null;
         private Listener listener;
@@ -172,18 +191,16 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             if (viewType == VIEW_TYPE_HEADER) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(headerLayoutResource, parent, false);
-                return new HeaderViewHolder(view);
+                return new HeaderViewHolder(LayoutInflater.from(parent.getContext()).inflate(headerLayoutResource, parent, false));
             }
             if (viewType == VIEW_TYPE_ITEM) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(itemLayoutResource, parent, false);
                 final ItemViewHolder holder = new ItemViewHolder(view);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int position = header != null ? holder.getAdapterPosition() - 1 : holder.getAdapterPosition();
-                        Option option = options.get(position);
-                        listener.onModalOptionSelected(getTag(), option);
+                        listener.onOptionSelected(getTag(), options.get(position));
                     }
                 });
                 return holder;
@@ -193,9 +210,9 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            int correctedPosition = header == null ? position : position - 1;
+            int correctPosition = header == null ? position : position - 1;
             if (holder instanceof ItemViewHolder) {
-                Option option = options.get(correctedPosition);
+                Option option = options.get(correctPosition);
                 ((ItemViewHolder) holder).bind(option);
             } else if (holder instanceof HeaderViewHolder) {
                 ((HeaderViewHolder) holder).bind(header);
@@ -227,8 +244,8 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             this.header = header;
         }
 
-        public void setLayoutRes(@LayoutRes int layoutResource) {
-            this.layoutResource = layoutResource;
+        public void setItemLayoutRes(@LayoutRes int itemLayoutResource) {
+            this.itemLayoutResource = itemLayoutResource;
         }
 
         public void setHeaderLayoutResource(@LayoutRes int headerLayoutResource) {
@@ -236,15 +253,20 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView text;
         ImageView icon;
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            text = itemView.findViewById(R.id.text1);
+            text = itemView.findViewById(R.id.title);
             icon = itemView.findViewById(R.id.icon);
+            if (text == null) {
+                throw new IllegalStateException("TextView in the Alternative item resource must have the id 'title'");
+            }
+            if (icon == null) {
+                throw new IllegalStateException("ImageView in the Alternative item resource must have the id 'icon'");
+            }
         }
 
         public void bind(Option option) {
@@ -253,13 +275,15 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-
+    static class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
         HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
-            text = itemView.findViewById(R.id.text1);
+            text = itemView.findViewById(R.id.header);
+            if (text == null) {
+                throw new IllegalStateException("TextView in the Alternative header resource must have the id 'header'");
+            }
         }
 
         public void bind(@Nullable String header) {

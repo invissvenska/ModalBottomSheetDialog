@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
+                ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
                         .setHeader("Title of modal")
                         .add(R.menu.options)
-                        .show(getSupportFragmentManager(), "WithHeader");
+                        .build();
+
+                dialog.show(getSupportFragmentManager(), "WithHeader");
             }
         });
 
@@ -43,10 +45,34 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
                         .show(getSupportFragmentManager(), "WithoutHeader");
             }
         });
+
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Custom title and item layouts")
+                        .setHeaderLayout(R.layout.alternate_bottom_sheet_fragment_header)
+                        .add(R.menu.lot_of_options)
+                        .setItemLayout(R.layout.alternate_bottom_sheet_fragment_item)
+                        .setColumns(3)
+                        .show(getSupportFragmentManager(), "CustomHeader");
+            }
+        });
+
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Grid bottom layout")
+                        .add(R.menu.lot_of_options)
+                        .setColumns(3)
+                        .show(getSupportFragmentManager(), "CustomHeader");
+            }
+        });
     }
 
     @Override
-    public void onModalOptionSelected(String tag, Option option) {
+    public void onOptionSelected(String tag, Option option) {
         Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + option.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

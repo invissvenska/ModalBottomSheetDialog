@@ -6,7 +6,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
-import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 
 public class OptionRequest implements Parcelable {
@@ -16,12 +15,6 @@ public class OptionRequest implements Parcelable {
     @DrawableRes
     private Integer icon;
 
-    public OptionRequest(Integer id, String title, @Nullable @DrawableRes Integer icon) {
-        this.id = id;
-        this.title = title;
-        this.icon = icon;
-    }
-
     public OptionRequest(Parcel source) {
         this.id = source.readInt();
         this.title = source.readString();
@@ -29,8 +22,7 @@ public class OptionRequest implements Parcelable {
     }
 
     protected Option toOption(Context context) {
-        Drawable drawable = null;
-        drawable = icon != null ? ResourcesCompat.getDrawable(context.getResources(), icon, context.getTheme()) : null;
+        Drawable drawable = icon != null ? ResourcesCompat.getDrawable(context.getResources(), icon, context.getTheme()) : null;
         return new Option(id, title, drawable);
     }
 
