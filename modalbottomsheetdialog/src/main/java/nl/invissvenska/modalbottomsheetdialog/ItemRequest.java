@@ -8,33 +8,33 @@ import android.os.Parcelable;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.res.ResourcesCompat;
 
-public class OptionRequest implements Parcelable {
+public class ItemRequest implements Parcelable {
 
     private Integer id;
     private String title;
     @DrawableRes
     private Integer icon;
 
-    public OptionRequest(Parcel source) {
+    public ItemRequest(Parcel source) {
         this.id = source.readInt();
         this.title = source.readString();
         this.icon = (Integer) source.readValue(getClass().getClassLoader());
     }
 
-    protected Option toOption(Context context) {
+    protected Item toItem(Context context) {
         Drawable drawable = icon != null ? ResourcesCompat.getDrawable(context.getResources(), icon, context.getTheme()) : null;
-        return new Option(id, title, drawable);
+        return new Item(id, title, drawable);
     }
 
-    public static final Creator<OptionRequest> CREATOR = new Creator<OptionRequest>() {
+    public static final Creator<ItemRequest> CREATOR = new Creator<ItemRequest>() {
         @Override
-        public OptionRequest createFromParcel(Parcel source) {
-            return new OptionRequest(source);
+        public ItemRequest createFromParcel(Parcel source) {
+            return new ItemRequest(source);
         }
 
         @Override
-        public OptionRequest[] newArray(int size) {
-            return new OptionRequest[size];
+        public ItemRequest[] newArray(int size) {
+            return new ItemRequest[size];
         }
     };
 

@@ -1,19 +1,14 @@
 package nl.invissvenska.modalbottomsheetdialog.sample;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import nl.invissvenska.modalbottomsheetdialog.ModalBottomSheetDialog;
-import nl.invissvenska.modalbottomsheetdialog.Option;
+import nl.invissvenska.modalbottomsheetdialog.Item;
 
 public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
 
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
     }
 
     @Override
-    public void onOptionSelected(String tag, Option option) {
-        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + option.getTitle(), Toast.LENGTH_SHORT).show();
+    public void onItemSelected(String tag, Item item) {
+        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

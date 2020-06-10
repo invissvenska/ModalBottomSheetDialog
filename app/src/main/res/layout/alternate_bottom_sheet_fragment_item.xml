@@ -17,15 +17,4 @@
         android:contentDescription="@null"
         tools:src="@android:drawable/alert_dark_frame" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:visibility="gone"
-        tools:text="Item title" />
-
 </LinearLayout>

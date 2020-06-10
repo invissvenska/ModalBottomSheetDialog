@@ -29,7 +29,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
 
     private static ModalBottomSheetDialog fragment;
 
-    private static final String KEY_OPTIONS = "options";
+    private static final String KEY_ITEMS = "items";
     private static final String KEY_ITEM_LAYOUT = "item_layout";
     private static final String KEY_HEADER = "header";
     private static final String KEY_HEADER_LAYOUT = "header_layout";
@@ -46,7 +46,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         Bundle arguments = new Bundle();
         arguments.putString(KEY_HEADER, builder.header);
         arguments.putInt(KEY_HEADER_LAYOUT, builder.headerLayoutResource);
-        arguments.putParcelableArrayList(KEY_OPTIONS, builder.options);
+        arguments.putParcelableArrayList(KEY_ITEMS, builder.items);
         arguments.putInt(KEY_ITEM_LAYOUT, builder.itemLayoutResource);
         arguments.putInt(KEY_COLUMNS, builder.columns);
 
@@ -65,24 +65,24 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         RecyclerView list = view.findViewById(R.id.list);
         Bundle arguments = getArguments();
         assert arguments != null;
-        List<OptionHolder> optionHolders = arguments.getParcelableArrayList(KEY_OPTIONS);
-        List<Option> options = new ArrayList<>();
+        List<ItemHolder> itemHolders = arguments.getParcelableArrayList(KEY_ITEMS);
+        List<Item> items = new ArrayList<>();
 
-        for (OptionHolder oh : optionHolders != null ? optionHolders : new ArrayList<OptionHolder>()) {
-            Integer resource = oh.getResource();
-            OptionRequest optionRequest = oh.getOptionRequest();
+        for (ItemHolder holder : itemHolders != null ? itemHolders : new ArrayList<ItemHolder>()) {
+            Integer resource = holder.getResource();
+            ItemRequest itemRequest = holder.getItemRequest();
             if (resource != null) {
-                inflate(resource, options);
+                inflate(resource, items);
             }
-            if (optionRequest != null) {
-                options.add(optionRequest.toOption(getContext()));
+            if (itemRequest != null) {
+                items.add(itemRequest.toItem(getContext()));
             }
         }
 
         final Adapter adapter = new Adapter(bindHost());
         adapter.setHeader(arguments.getString(KEY_HEADER));
         adapter.setHeaderLayoutResource(arguments.getInt(KEY_HEADER_LAYOUT));
-        adapter.setOptions(options);
+        adapter.setItems(items);
         adapter.setItemLayoutRes(arguments.getInt(KEY_ITEM_LAYOUT));
         list.setAdapter(adapter);
         final int columns = arguments.getInt(KEY_COLUMNS);
@@ -102,14 +102,14 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     @SuppressLint("RestrictedApi")
-    private void inflate(Integer menuResource, List<Option> options) {
+    private void inflate(Integer menuResource, List<Item> items) {
         MenuBuilder menu = new MenuBuilder(getContext());
         MenuInflater inflater = new MenuInflater(getContext());
         inflater.inflate(menuResource, menu);
         for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            Option option = new Option(item.getItemId(), item.getTitle(), item.getIcon());
-            options.add(option);
+            MenuItem menuItem = menu.getItem(i);
+            Item item = new Item(menuItem.getItemId(), menuItem.getTitle(), menuItem.getIcon());
+            items.add(item);
         }
     }
 
@@ -126,7 +126,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     public static class Builder {
         private String header = null;
         private int headerLayoutResource = R.layout.bottom_sheet_fragment_header;
-        private ArrayList<OptionHolder> options = new ArrayList<>();
+        private ArrayList<ItemHolder> items = new ArrayList<>();
         private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
         private int columns = 1;
 
@@ -144,7 +144,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         }
 
         public Builder add(@MenuRes int menuResource) {
-            options.add(new OptionHolder(menuResource));
+            items.add(new ItemHolder(menuResource));
             return this;
         }
 
@@ -169,7 +169,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     public interface Listener {
-        void onOptionSelected(String tag, Option option);
+        void onItemSelected(String tag, Item item);
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -177,7 +177,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         private static final int VIEW_TYPE_HEADER = 0;
         private static final int VIEW_TYPE_ITEM = 1;
 
-        private ArrayList<Option> options = new ArrayList<>();
+        private ArrayList<Item> items = new ArrayList<>();
         private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
         private int headerLayoutResource = R.layout.bottom_sheet_fragment_header;
         private String header = null;
@@ -200,7 +200,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
                     @Override
                     public void onClick(View view) {
                         int position = header != null ? holder.getAdapterPosition() - 1 : holder.getAdapterPosition();
-                        listener.onOptionSelected(getTag(), options.get(position));
+                        listener.onItemSelected(getTag(), items.get(position));
                     }
                 });
                 return holder;
@@ -212,8 +212,8 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             int correctPosition = header == null ? position : position - 1;
             if (holder instanceof ItemViewHolder) {
-                Option option = options.get(correctPosition);
-                ((ItemViewHolder) holder).bind(option);
+                Item item = items.get(correctPosition);
+                ((ItemViewHolder) holder).bind(item);
             } else if (holder instanceof HeaderViewHolder) {
                 ((HeaderViewHolder) holder).bind(header);
             }
@@ -221,7 +221,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
 
         @Override
         public int getItemCount() {
-            return header == null ? options.size() : options.size() + 1;
+            return header == null ? items.size() : items.size() + 1;
         }
 
         @Override
@@ -234,9 +234,9 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             return VIEW_TYPE_ITEM;
         }
 
-        public void setOptions(List<Option> options) {
-            this.options.clear();
-            this.options.addAll(options);
+        public void setItems(List<Item> items) {
+            this.items.clear();
+            this.items.addAll(items);
             notifyDataSetChanged();
         }
 
@@ -261,17 +261,18 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
             super(itemView);
             text = itemView.findViewById(R.id.title);
             icon = itemView.findViewById(R.id.icon);
-            if (text == null) {
-                throw new IllegalStateException("TextView in the Alternative item resource must have the id 'title'");
-            }
-            if (icon == null) {
-                throw new IllegalStateException("ImageView in the Alternative item resource must have the id 'icon'");
+            if (text == null && icon == null) {
+                throw new IllegalStateException("At least define a TextView with id 'title' or an ImageView with id 'icon' in the item resource");
             }
         }
 
-        public void bind(Option option) {
-            text.setText(option.getTitle());
-            icon.setImageDrawable(option.getIcon());
+        public void bind(Item item) {
+            if (text != null) {
+                text.setText(item.getTitle());
+            }
+            if (icon != null) {
+                icon.setImageDrawable(item.getIcon());
+            }
         }
     }
 
