@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_horizontal|center_vertical"
+    android:padding="16dp"
+    android:textColor="@android:color/holo_blue_dark"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    tools:text="Header Title" />

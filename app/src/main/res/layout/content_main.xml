@@ -5,15 +5,62 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/buttonWithHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="With Header" />
+
+            <Button
+                android:id="@+id/buttonWithoutHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="Without Header" />
+
+            <Button
+                android:id="@+id/buttonGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="Grid Layout" />
+
+            <Button
+                android:id="@+id/buttonCustomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="Custom Header Layout" />
+
+            <Button
+                android:id="@+id/buttonScrollableList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="Scroll Layout" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

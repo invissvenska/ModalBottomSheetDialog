@@ -1,19 +1,16 @@
 package nl.invissvenska.modalbottomsheetdialog.sample;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import nl.invissvenska.modalbottomsheetdialog.ModalBottomSheetDialog;
+import nl.invissvenska.modalbottomsheetdialog.Item;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,35 +19,66 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonWithHeader).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
+                        .setHeader("Title of modal")
+                        .add(R.menu.options)
+                        .build();
+
+                dialog.show(getSupportFragmentManager(), "WithHeader");
+            }
+        });
+
+        findViewById(R.id.buttonWithoutHeader).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .add(R.menu.options)
+                        .add(R.menu.options)
+                        .show(getSupportFragmentManager(), "WithoutHeader");
+            }
+        });
+
+        findViewById(R.id.buttonGrid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Grid bottom layout")
+                        .add(R.menu.lot_of_options)
+                        .setColumns(3)
+                        .show(getSupportFragmentManager(), "GridLayout");
+            }
+        });
+
+        findViewById(R.id.buttonCustomLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Custom title and item layouts")
+                        .setHeaderLayout(R.layout.alternate_bottom_sheet_fragment_header)
+                        .add(R.menu.lot_of_options)
+                        .setItemLayout(R.layout.alternate_bottom_sheet_fragment_item)
+                        .setColumns(3)
+                        .show(getSupportFragmentManager(), "CustomHeader");
+            }
+        });
+
+        findViewById(R.id.buttonScrollableList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Scrolling layout")
+                        .add(R.menu.lot_of_options)
+                        .add(R.menu.lot_of_options)
+                        .show(getSupportFragmentManager(), "ScrollLayout");
             }
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onItemSelected(String tag, Item item) {
+        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

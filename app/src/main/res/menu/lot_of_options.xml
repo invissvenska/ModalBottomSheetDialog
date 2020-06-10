@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_directions"
+        android:icon="@drawable/ic_baseline_directions_24"
+        android:title="Direction" />
+
+    <item
+        android:id="@+id/action_bike"
+        android:icon="@drawable/ic_baseline_directions_bike_24"
+        android:title="Bike" />
+
+    <item
+        android:id="@+id/action_boat"
+        android:icon="@drawable/ic_baseline_directions_boat_24"
+        android:title="Boat" />
+
+    <item
+        android:id="@+id/action_bus"
+        android:icon="@drawable/ic_baseline_directions_bus_24"
+        android:title="Bus" />
+
+    <item
+        android:id="@+id/action_car"
+        android:icon="@drawable/ic_baseline_directions_car_24"
+        android:title="Car" />
+
+    <item
+        android:id="@+id/action_walk"
+        android:icon="@drawable/ic_baseline_directions_run_24"
+        android:title="Walk" />
+
+    <item
+        android:id="@+id/action_subway"
+        android:icon="@drawable/ic_baseline_directions_subway_24"
+        android:title="Subway" />
+
+</menu>
