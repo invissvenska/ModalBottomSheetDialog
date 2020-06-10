@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_directions"
         android:icon="@drawable/ic_baseline_directions_24"
-        android:title="Directions" />
+        android:title="Direction" />
 
     <item
         android:id="@+id/action_bike"

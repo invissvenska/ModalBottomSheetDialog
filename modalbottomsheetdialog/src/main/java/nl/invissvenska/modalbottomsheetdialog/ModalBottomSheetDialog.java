@@ -35,10 +35,6 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     private static final String KEY_HEADER_LAYOUT = "header_layout";
     private static final String KEY_COLUMNS = "columns";
 
-    private ModalBottomSheetDialog() {
-        // avoiding instantiation
-    }
-
     private static ModalBottomSheetDialog newInstance(Builder builder) {
         if (fragment == null) {
             fragment = new ModalBottomSheetDialog();
@@ -129,9 +125,6 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         private ArrayList<ItemHolder> items = new ArrayList<>();
         private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
         private int columns = 1;
-
-        public Builder() {
-        }
 
         public Builder setHeader(String header) {
             this.header = header;

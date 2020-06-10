@@ -15,7 +15,7 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/buttonWithHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
@@ -24,7 +24,7 @@
                 android:text="With Header" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonWithoutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
@@ -33,7 +33,16 @@
                 android:text="Without Header" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:text="Grid Layout" />
+
+            <Button
+                android:id="@+id/buttonCustomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
@@ -42,13 +51,13 @@
                 android:text="Custom Header Layout" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttonScrollableList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
                 android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
-                android:text="Grid Layout" />
+                android:text="Scroll Layout" />
 
         </LinearLayout>
 

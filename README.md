@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
 
     @Override
     public void onItemSelected(String tag, Item item) {
-        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), 
+            Toast.LENGTH_SHORT).show();
     }
 }
 ```
@@ -49,6 +50,22 @@ new ModalBottomSheetDialog.Builder()
     .setItemLayout(@LayoutRes int layoutResource) // optional (TextView with id 'title' or ImageView with id 'icon' must be defined in layout)
     .setColumns(int columns) // optional (default is 1)
     .show(FragmentManager fragmentManager, String tag);
+```
+
+Extend you theme with on of the DayNight variants to support a dark styled ModalBottomSheetDialog. For example `styles.xml`:
+```xml
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- other style declarations -->
+
+</resources>
 ```
 
 ## Usage

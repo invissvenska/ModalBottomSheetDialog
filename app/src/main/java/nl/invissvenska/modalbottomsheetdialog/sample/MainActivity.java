@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonWithHeader).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
             }
         });
 
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonWithoutHeader).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new ModalBottomSheetDialog.Builder()
@@ -41,7 +41,18 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
             }
         });
 
-        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonGrid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Grid bottom layout")
+                        .add(R.menu.lot_of_options)
+                        .setColumns(3)
+                        .show(getSupportFragmentManager(), "GridLayout");
+            }
+        });
+
+        findViewById(R.id.buttonCustomLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new ModalBottomSheetDialog.Builder()
@@ -54,14 +65,14 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
             }
         });
 
-        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonScrollableList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new ModalBottomSheetDialog.Builder()
-                        .setHeader("Grid bottom layout")
+                        .setHeader("Scrolling layout")
                         .add(R.menu.lot_of_options)
-                        .setColumns(3)
-                        .show(getSupportFragmentManager(), "CustomHeader");
+                        .add(R.menu.lot_of_options)
+                        .show(getSupportFragmentManager(), "ScrollLayout");
             }
         });
     }
