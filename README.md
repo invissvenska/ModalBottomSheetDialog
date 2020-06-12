@@ -7,10 +7,10 @@ Add this in your root `build.gradle` file (**not** your module `build.gradle` fi
 
 ```gradle
 allprojects {
-	repositories {
-		...
-		maven { url "https://jitpack.io" }
-	}
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
 }
 ```
 
@@ -20,8 +20,8 @@ Add this to your module's `build.gradle` file (make sure the version matches the
 
 ```gradle
 dependencies {
-	...
-	implementation 'com.github.invissvenska:ModalBottomSheetDialog:VERSION'
+    ...
+    implementation 'com.github.invissvenska:ModalBottomSheetDialog:VERSION'
 }
 ```
 
@@ -49,6 +49,7 @@ new ModalBottomSheetDialog.Builder()
     .add(@MenuRes int menuResource) // can be used more then once
     .setItemLayout(@LayoutRes int layoutResource) // optional (TextView with id 'title' or ImageView with id 'icon' must be defined in layout)
     .setColumns(int columns) // optional (default is 1)
+    .setRoundedModal(boolean roundedModal) // optional (default is false)
     .show(FragmentManager fragmentManager, String tag);
 ```
 
@@ -91,9 +92,9 @@ new ModalBottomSheetDialog.Builder()
 To display a ModalBottomSheetDialog with items from multiple menu resources:
 ``` java
 new ModalBottomSheetDialog.Builder()
-                        .add(R.menu.options)
-                        .add(R.menu.options)
-                        .show(getSupportFragmentManager(), "WithoutHeader");
+    .add(R.menu.options)
+    .add(R.menu.options)
+    .show(getSupportFragmentManager(), "WithoutHeader");
 ```
 
 To display a ModalBottomSheetDialog in a grid layout:
@@ -114,6 +115,15 @@ new ModalBottomSheetDialog.Builder()
     .setItemLayout(R.layout.alternate_bottom_sheet_fragment_item)
     .setColumns(3)
     .show(getSupportFragmentManager(), "Custom Layout");
+```
+
+To display a ModalBottomSheetDialog with rounded corners:
+``` java
+new ModalBottomSheetDialog.Builder()
+    .setHeader("Rounded bottom layout")
+    .add(R.menu.lot_of_options)
+    .setRoundedModal(true)
+    .show(getSupportFragmentManager(), "Rounded Layout");
 ```
 
 ## Screenshots
