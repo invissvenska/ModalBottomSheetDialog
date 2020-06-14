@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="modalBottomBackground">#353535</color>
-    <color name="modalBottomTextColor">#0b0b0b</color>
+    <color name="modalBottomTextColor">#8F8F8F</color>
     <color name="modalBottomHeaderColor">#c3c3c3</color>
 </resources>
