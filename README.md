@@ -1,5 +1,5 @@
 # ModalBottomSheetDialog
-[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![](https://jitpack.io/v/invissvenska/ModalBottomSheetDialog.svg)](https://jitpack.io/#invissvenska/ModalBottomSheetDialog)  
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![](https://jitpack.io/v/invissvenska/ModalBottomSheetDialog.svg)](https://jitpack.io/#invissvenska/ModalBottomSheetDialog) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ModalBottomSheetDialog-green.svg?style=flat )]( https://android-arsenal.com/details/1/8133 )  
 
 ## Prerequisites
 
