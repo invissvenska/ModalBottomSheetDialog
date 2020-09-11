@@ -12,15 +12,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/buttonWithHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
                 android:text="With Header" />
 
             <Button
@@ -28,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
                 android:text="Without Header" />
 
             <Button
@@ -37,8 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
                 android:text="Grid Layout" />
 
             <Button
@@ -46,8 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
                 android:text="Custom Header Layout" />
 
             <Button
@@ -55,9 +55,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
                 android:text="Scroll Layout" />
+
+            <Button
+                android:id="@+id/buttonRounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/btn_margin"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginEnd="@dimen/btn_margin"
+                android:text="Rounded Layout" />
 
         </LinearLayout>
 

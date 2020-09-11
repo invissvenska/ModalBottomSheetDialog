@@ -75,6 +75,17 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
                         .show(getSupportFragmentManager(), "ScrollLayout");
             }
         });
+
+        findViewById(R.id.buttonRounded).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ModalBottomSheetDialog.Builder()
+                        .setHeader("Rounded layout")
+                        .setRoundedModal(true)
+                        .add(R.menu.lot_of_options)
+                        .show(getSupportFragmentManager(), "RoundedLayout");
+            }
+        });
     }
 
     @Override

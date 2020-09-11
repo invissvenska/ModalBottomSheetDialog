@@ -34,20 +34,27 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
     private static final String KEY_HEADER = "header";
     private static final String KEY_HEADER_LAYOUT = "header_layout";
     private static final String KEY_COLUMNS = "columns";
+    private static boolean roundedModal = false;
 
     private static ModalBottomSheetDialog newInstance(Builder builder) {
         if (fragment == null) {
             fragment = new ModalBottomSheetDialog();
         }
+        roundedModal = builder.roundedModal;
+
         Bundle arguments = new Bundle();
         arguments.putString(KEY_HEADER, builder.header);
         arguments.putInt(KEY_HEADER_LAYOUT, builder.headerLayoutResource);
         arguments.putParcelableArrayList(KEY_ITEMS, builder.items);
         arguments.putInt(KEY_ITEM_LAYOUT, builder.itemLayoutResource);
         arguments.putInt(KEY_COLUMNS, builder.columns);
-
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @Override
+    public int getTheme() {
+        return roundedModal ? R.style.BottomSheetDialogTheme : super.getTheme();
     }
 
     @Override
@@ -125,6 +132,7 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
         private ArrayList<ItemHolder> items = new ArrayList<>();
         private int itemLayoutResource = R.layout.bottom_sheet_fragment_item;
         private int columns = 1;
+        private boolean roundedModal = false;
 
         public Builder setHeader(String header) {
             this.header = header;
@@ -148,6 +156,11 @@ public class ModalBottomSheetDialog extends BottomSheetDialogFragment {
 
         public Builder setColumns(int columns) {
             this.columns = columns;
+            return this;
+        }
+
+        public Builder setRoundedModal(boolean roundedModal) {
+            this.roundedModal = roundedModal;
             return this;
         }
 

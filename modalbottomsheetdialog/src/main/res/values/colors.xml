@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="defaultTextColor">#FFFFFF</color>
+    <color name="modalBottomBackground">#FFFFFF</color>
+    <color name="modalBottomTextColor">#2E2E2E</color>
+    <color name="modalBottomHeaderColor">#666666</color>
 </resources>
