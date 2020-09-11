@@ -1,5 +1,5 @@
 # ModalBottomSheetDialog
-[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![](https://jitpack.io/v/invissvenska/ModalBottomSheetDialog.svg)](https://jitpack.io/#invissvenska/ModalBottomSheetDialog)  
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![](https://jitpack.io/v/invissvenska/ModalBottomSheetDialog.svg)](https://jitpack.io/#invissvenska/ModalBottomSheetDialog) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ModalBottomSheetDialog-green.svg?style=flat )]( https://android-arsenal.com/details/1/8133 ) <span class="badge-buymeacoffee"><a href="https://www.paypal.com/paypalme/svenvandentweel/3" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>  
 
 ## Prerequisites
 
