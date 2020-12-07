@@ -81,12 +81,15 @@ When you use the ModalBottomSheetDialog in a Fragment and want to show the botto
 ```java
 dialog.show(getParentFragmentManager(), "WithHeader");
 ```
+
 ### Activity
 
 When you use the ModalBottomSheetDialog in an Activity and want to show the bottom dialog:
 ```java
 dialog.show(getSupportFragmentManager(), "WithHeader");
 ```
+
+### Options
 
 To create a ModalBottomSheetDialog and display it later in code:
 ``` java
