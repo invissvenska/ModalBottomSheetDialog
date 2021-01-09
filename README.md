@@ -33,19 +33,30 @@ dependencies {
 
 Implement the ModalBottomSheetDialog Listener interface on your Activity or Fragment:
 
+Implements listener in Activity
 ```java
 public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
-    
-    // some other code
-
-    @Override
-    public void onItemSelected(String tag, Item item) {
-        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), 
-            Toast.LENGTH_SHORT).show();
-    }
+    // some code
 }
 ```
 
+Implements listener in Fragment
+```java
+public class Fragment implements ModalBottomSheetDialog.Listener {
+    // some code
+}
+```
+
+Override onItemSelected method
+```java
+@Override
+public void onItemSelected(String tag, Item item) {
+    Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), 
+        Toast.LENGTH_SHORT).show();
+}
+```
+
+Create the dialog
 ```java
 new ModalBottomSheetDialog.Builder()
     .setHeader(String title) // optional
@@ -79,7 +90,7 @@ Extend you theme with on of the DayNight variants to support a dark styled Modal
 
 When you use the ModalBottomSheetDialog in a Fragment and want to show the bottom dialog:
 ```java
-dialog.show(getParentFragmentManager(), "WithHeader");
+dialog.show(getChildFragmentManager(), "WithHeader");
 ```
 
 ### Activity
@@ -144,6 +155,11 @@ new ModalBottomSheetDialog.Builder()
     .add(R.menu.lot_of_options)
     .setRoundedModal(true)
     .show(FragmentManager fragmentManager, "Rounded Layout");
+```
+
+If you want to close a ModalBottomSheetDialog:
+``` java
+dialog.dismiss();
 ```
 
 ## Screenshots
