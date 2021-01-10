@@ -74,6 +74,7 @@ public class ModalActivity extends AppCompatActivity implements ModalBottomSheet
                         .setHeader("Scrolling layout")
                         .add(R.menu.lot_of_options)
                         .add(R.menu.lot_of_options)
+                        .add(R.menu.lot_of_options)
                         .show(getSupportFragmentManager(), "ScrollLayout");
             }
         });

@@ -77,6 +77,7 @@ public class ModalFragment extends Fragment implements ModalBottomSheetDialog.Li
                         .setHeader("Scrolling layout")
                         .add(R.menu.lot_of_options)
                         .add(R.menu.lot_of_options)
+                        .add(R.menu.lot_of_options)
                         .show(getChildFragmentManager(), "ScrollLayout");
             }
         });
