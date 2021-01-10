@@ -20,31 +20,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="50dp">
-
-        <Button
-            android:id="@+id/activityDemo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/btn_margin"
-            android:layout_marginTop="@dimen/btn_margin"
-            android:layout_marginEnd="@dimen/btn_margin"
-            android:text="Activity Demo" />
-
-
-        <Button
-            android:id="@+id/fragmentDemo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/btn_margin"
-            android:layout_marginTop="@dimen/btn_margin"
-            android:layout_marginEnd="@dimen/btn_margin"
-            android:text="Fragment Demo" />
-
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
