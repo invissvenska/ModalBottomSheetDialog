@@ -33,19 +33,30 @@ dependencies {
 
 Implement the ModalBottomSheetDialog Listener interface on your Activity or Fragment:
 
+Implements listener in Activity
 ```java
 public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
-    
-    // some other code
-
-    @Override
-    public void onItemSelected(String tag, Item item) {
-        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), 
-            Toast.LENGTH_SHORT).show();
-    }
+    // some code
 }
 ```
 
+Implements listener in Fragment
+```java
+public class Fragment implements ModalBottomSheetDialog.Listener {
+    // some code
+}
+```
+
+Override onItemSelected method
+```java
+@Override
+public void onItemSelected(String tag, Item item) {
+    Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), 
+        Toast.LENGTH_SHORT).show();
+}
+```
+
+Create the dialog
 ```java
 new ModalBottomSheetDialog.Builder()
     .setHeader(String title) // optional
@@ -75,6 +86,22 @@ Extend you theme with on of the DayNight variants to support a dark styled Modal
 
 ## Usage
 
+### Fragment
+
+When you use the ModalBottomSheetDialog in a Fragment and want to show the bottom dialog:
+```java
+dialog.show(getChildFragmentManager(), "WithHeader");
+```
+
+### Activity
+
+When you use the ModalBottomSheetDialog in an Activity and want to show the bottom dialog:
+```java
+dialog.show(getSupportFragmentManager(), "WithHeader");
+```
+
+### Options
+
 To create a ModalBottomSheetDialog and display it later in code:
 ``` java
 ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
@@ -82,7 +109,7 @@ ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
     .add(R.menu.options)
     .build();
 // some other code in between
-dialog.show(getSupportFragmentManager(), "WithHeader");
+dialog.show(FragmentManager fragmentManager, "WithHeader");
 ```
 
 To display a ModalBottomSheetDialog directly:
@@ -90,7 +117,7 @@ To display a ModalBottomSheetDialog directly:
 new ModalBottomSheetDialog.Builder()
     .setHeader("Title of modal")
     .add(R.menu.options)
-    .show(getSupportFragmentManager(), "WithHeader");
+    .show(FragmentManager fragmentManager, "WithHeader");
 ```
 
 To display a ModalBottomSheetDialog with items from multiple menu resources:
@@ -98,7 +125,7 @@ To display a ModalBottomSheetDialog with items from multiple menu resources:
 new ModalBottomSheetDialog.Builder()
     .add(R.menu.options)
     .add(R.menu.options)
-    .show(getSupportFragmentManager(), "WithoutHeader");
+    .show(FragmentManager fragmentManager, "WithoutHeader");
 ```
 
 To display a ModalBottomSheetDialog in a grid layout:
@@ -107,7 +134,7 @@ new ModalBottomSheetDialog.Builder()
     .setHeader("Grid bottom layout")
     .add(R.menu.lot_of_options)
     .setColumns(3)
-    .show(getSupportFragmentManager(), "Grid Layout");
+    .show(FragmentManager fragmentManager, "Grid Layout");
 ```
 
 To display a ModalBottomSheetDialog with custom layout:
@@ -118,7 +145,7 @@ new ModalBottomSheetDialog.Builder()
     .add(R.menu.lot_of_options)
     .setItemLayout(R.layout.alternate_bottom_sheet_fragment_item)
     .setColumns(3)
-    .show(getSupportFragmentManager(), "Custom Layout");
+    .show(FragmentManager fragmentManager, "Custom Layout");
 ```
 
 To display a ModalBottomSheetDialog with rounded corners:
@@ -127,7 +154,12 @@ new ModalBottomSheetDialog.Builder()
     .setHeader("Rounded bottom layout")
     .add(R.menu.lot_of_options)
     .setRoundedModal(true)
-    .show(getSupportFragmentManager(), "Rounded Layout");
+    .show(FragmentManager fragmentManager, "Rounded Layout");
+```
+
+If you want to close a ModalBottomSheetDialog:
+``` java
+dialog.dismiss();
 ```
 
 ## Screenshots
