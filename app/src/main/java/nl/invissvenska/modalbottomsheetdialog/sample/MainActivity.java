@@ -1,16 +1,14 @@
 package nl.invissvenska.modalbottomsheetdialog.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
-import nl.invissvenska.modalbottomsheetdialog.ModalBottomSheetDialog;
-import nl.invissvenska.modalbottomsheetdialog.Item;
-
-public class MainActivity extends AppCompatActivity implements ModalBottomSheetDialog.Listener {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,77 +17,20 @@ public class MainActivity extends AppCompatActivity implements ModalBottomSheetD
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.buttonWithHeader).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.activityDemo).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                ModalBottomSheetDialog dialog = new ModalBottomSheetDialog.Builder()
-                        .setHeader("Title of modal")
-                        .add(R.menu.options)
-                        .build();
-
-                dialog.show(getSupportFragmentManager(), "WithHeader");
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ModalActivity.class);
+                startActivity(intent);
             }
         });
 
-        findViewById(R.id.buttonWithoutHeader).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fragmentDemo).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
-                        .add(R.menu.options)
-                        .add(R.menu.options)
-                        .show(getSupportFragmentManager(), "WithoutHeader");
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ActivityFragment.class);
+                startActivity(intent);
             }
         });
-
-        findViewById(R.id.buttonGrid).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
-                        .setHeader("Grid bottom layout")
-                        .add(R.menu.lot_of_options)
-                        .setColumns(3)
-                        .show(getSupportFragmentManager(), "GridLayout");
-            }
-        });
-
-        findViewById(R.id.buttonCustomLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
-                        .setHeader("Custom title and item layouts")
-                        .setHeaderLayout(R.layout.alternate_bottom_sheet_fragment_header)
-                        .add(R.menu.lot_of_options)
-                        .setItemLayout(R.layout.alternate_bottom_sheet_fragment_item)
-                        .setColumns(3)
-                        .show(getSupportFragmentManager(), "CustomHeader");
-            }
-        });
-
-        findViewById(R.id.buttonScrollableList).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
-                        .setHeader("Scrolling layout")
-                        .add(R.menu.lot_of_options)
-                        .add(R.menu.lot_of_options)
-                        .show(getSupportFragmentManager(), "ScrollLayout");
-            }
-        });
-
-        findViewById(R.id.buttonRounded).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ModalBottomSheetDialog.Builder()
-                        .setHeader("Rounded layout")
-                        .setRoundedModal(true)
-                        .add(R.menu.lot_of_options)
-                        .show(getSupportFragmentManager(), "RoundedLayout");
-            }
-        });
-    }
-
-    @Override
-    public void onItemSelected(String tag, Item item) {
-        Toast.makeText(getApplicationContext(), "Tag: " + tag + ", clicked on: " + item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
