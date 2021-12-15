@@ -12,11 +12,14 @@
         <activity
             android:name=".ModalActivity"
             android:label="@string/title_activity_modal"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".ActivityFragment"
             android:label="@string/title_activity_fragment"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
